@@ -12,26 +12,26 @@ struct TreeNodeOf
 	TreeNodeOf(V x) : val(x), left(nullptr), right(nullptr) {}
 };
 
-//template<typename V>
-//class nullable
-//{
-//	std::optional<V> val;
-//public:
-//	nullable(V arg) :val(arg) {}
-//	nullable(std::nullptr_t nptr) :val() {}
-//	bool has_value() { return val.has_value(); }
-//	V value() { return val.value(); }
-//};
+template<typename V>
+class nullable
+{
+	std::optional<V> val;
+public:
+	nullable(V arg) :val(arg) {}
+	nullable(std::nullptr_t nptr) :val() {}
+	bool has_value() { return val.has_value(); }
+	V value() { return val.value(); }
+};
 
-//template<typename V>
-//TreeNodeOf<V>* BinaryTree(const vector<nullable<V>>& l, size_t offset = 0)
-//{
-//	if (offset >= l.size() || !l[offset].has_value()) return nullptr;
-//	auto node = new TreeNodeOf<V>(l[offset]);
-//	node->left = BinaryTree(l, offset * 2 + 1);
-//	node->right = BinaryTree(l, offset * 2 + 2);
-//	return node;
-//}
+template<typename V>
+TreeNodeOf<V>* BinaryTree(vector<nullable<V>> l, size_t offset = 0)
+{
+	if (offset >= l.size() || !l[offset].has_value()) return nullptr;
+	auto node = new TreeNodeOf<V>(l[offset]);
+	node->left = BinaryTree(l, offset * 2 + 1);
+	node->right = BinaryTree(l, offset * 2 + 2);
+	return node;
+}
 
 template<typename V>
 struct ListNodeOf
